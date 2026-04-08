@@ -1,0 +1,24 @@
+import fs from "fs/promises";
+
+const URL = "https://api.poe.watch/exchange/ratios?league=Mirage&game=poe1";
+const OUTPUT = "public/rates.json";
+
+async function main() {
+  const res = await fetch(URL);
+
+  if (!res.ok) {
+    throw new Error(`Fetch failed: ${res.status}`);
+  }
+
+  const data = await res.json();
+  const filteredData = data.items.filter((item) => item.category === "card");
+  const json = JSON.stringify(filteredData);
+
+  await fs.writeFile(OUTPUT, json + "\n");
+  console.log("Updated rates.json");
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
