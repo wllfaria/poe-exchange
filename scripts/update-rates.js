@@ -11,8 +11,7 @@ async function main() {
   }
 
   const data = await res.json();
-  const filteredData = data.items.filter((item) => item.category === "card");
-  const json = JSON.stringify(filteredData);
+  const json = JSON.stringify(data);
 
   await fs.writeFile(OUTPUT, json + "\n");
   console.log("Updated rates.json");
