@@ -11,7 +11,7 @@ async function main() {
   }
 
   const data = await res.json();
-  const json = JSON.stringify(data);
+  const json = JSON.stringify(data.items);
 
   await fs.writeFile(OUTPUT, json + "\n");
   console.log("Updated rates.json");
